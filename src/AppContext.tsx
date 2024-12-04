@@ -7,7 +7,7 @@ import {
     Statistics, UpdateApplicationForm
 } from "./types.ts";
 
-const API = process.env.API_ENDPOINT || "http://localhost:3000a"
+const API = process.env.API_ENDPOINT ?? "http://localhost:3000a"
 
 const GlobalStateContext = createContext<ApplicationState | undefined>(undefined);
 
