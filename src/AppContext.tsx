@@ -1,4 +1,4 @@
-import {createContext, useContext, useEffect, useState} from 'react';
+import {createContext, ReactNode, useContext, useEffect, useState} from 'react';
 import {
     Application, ApplicationForm,
     ApplicationState,
@@ -7,11 +7,15 @@ import {
     Statistics, UpdateApplicationForm
 } from "./types.ts";
 
-const API = process.env.API_ENDPOINT ?? "http://localhost:3000"
+const API = process.env.REACT_APP_API_ENDPOINT || "http://localhost:3000"
 
 const GlobalStateContext = createContext<ApplicationState | undefined>(undefined);
 
-export const GlobalStateProvider = ({children}: any) => {
+interface GlobalStateProviderProps {
+    children: ReactNode;
+}
+
+export const GlobalStateProvider = ({children}: GlobalStateProviderProps) => {
     const [companies, setCompanies] = useState<Company[]>([]);
     const [applications, setApplications] = useState<Application[]>([]);
     const [statistics, setStatistics] = useState<Statistics | null>(null);
