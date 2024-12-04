@@ -7,7 +7,7 @@ import {
     Statistics, UpdateApplicationForm
 } from "./types.ts";
 
-// const API = process.env.REACT_APP_API_ENDPOINT || "http://localhost:3000"
+const ENDPOINT = process.env.NODE_ENV === 'development' ? "http://localhost:3000" : "";
 
 const GlobalStateContext = createContext<ApplicationState | undefined>(undefined);
 
@@ -21,7 +21,7 @@ export const GlobalStateProvider = ({children}: GlobalStateProviderProps) => {
     const [statistics, setStatistics] = useState<Statistics | null>(null);
 
     const fetchData = async (value: ContextFetcher) => {
-        const response = await fetch(`/api/${value}`);
+        const response = await fetch(`${ENDPOINT}/api/${value}`);
         const data = await response.json();
         if (value === "company") {
             setCompanies(data);
@@ -33,7 +33,7 @@ export const GlobalStateProvider = ({children}: GlobalStateProviderProps) => {
     }
 
     const addCompany = async (name: string) => {
-        const response = await fetch(`/api/company`, {
+        const response = await fetch(`${ENDPOINT}/api/company`, {
             method: 'POST', headers: {
                 'Content-Type': 'application/json',
             }, body: JSON.stringify({name}),
@@ -45,7 +45,7 @@ export const GlobalStateProvider = ({children}: GlobalStateProviderProps) => {
     }
 
     const addApplication = async (form: ApplicationForm) => {
-        const response = await fetch(`/api/application`, {
+        const response = await fetch(`${ENDPOINT}/api/application`, {
             method: 'POST', headers: {
                 'Content-Type': 'application/json',
             }, body: JSON.stringify(form),
@@ -59,7 +59,7 @@ export const GlobalStateProvider = ({children}: GlobalStateProviderProps) => {
     // TODO: Probably need to update this
     const updateApplication = async (form: UpdateApplicationForm) => {
         const {id, ...rest} = form;
-        const response = await fetch(`/api/application/${id}`, {
+        const response = await fetch(`${ENDPOINT}/api/application/${id}`, {
             method: 'PUT', headers: {
                 'Content-Type': 'application/json',
             }, body: JSON.stringify(rest),
