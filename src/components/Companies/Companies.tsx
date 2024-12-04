@@ -27,6 +27,7 @@ export default function Companies() {
         };
 
         fetchStatistics().catch(e => console.error(e));
+// eslint-disable-next-line react-hooks/exhaustive-deps
     }, [companyData, applications]);
 
     if (loading) {

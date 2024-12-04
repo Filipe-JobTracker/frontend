@@ -20,6 +20,7 @@ export default function ImportCSV() {
             Papa.parse(file, {
                 header: true,
                 complete: async (results) => {
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
                     const data = results.data as any[];
                     console.log(data);
                     const mappedData = await Promise.all(data.map(async (row) => {
