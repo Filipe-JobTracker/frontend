@@ -1,5 +1,4 @@
 import Chip from "@mui/material/Chip";
-import {useGlobalState} from "../../AppContext.tsx";
 import {SyntheticEvent, useState} from "react";
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -18,6 +17,7 @@ import Select, {
 } from '@mui/material/Select';
 import {MenuItem} from "@mui/material";
 import {ApplicationStatus} from "../../types.ts";
+import {useGlobalState} from "../../GlobalState.tsx";
 
 interface ChipProps {
     status: ApplicationStatus;

@@ -1,9 +1,9 @@
 import {PieChart} from '@mui/x-charts/PieChart';
 import Paper from "@mui/material/Paper"
-import {useGlobalState} from "../../AppContext"
 import RecentApplicationsTable from "./RecentApplicationsTable";
 import {ApplicationStatus} from "../../types.ts";
 import {useEffect} from "react";
+import {useGlobalState} from "../../GlobalState.tsx";
 
 
 export default function BasicPie() {

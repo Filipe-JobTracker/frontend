@@ -4,8 +4,8 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import {useGlobalState} from "../../AppContext"
 import StatusChip from "../Applications/StatusChip.tsx";
+import {useGlobalState} from "../../GlobalState.tsx";
 
 const LAST_72H = 72 * 60 * 60 * 1000;
 

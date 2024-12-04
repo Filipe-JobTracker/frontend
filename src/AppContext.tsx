@@ -1,15 +1,16 @@
-import {createContext, ReactNode, useContext, useEffect, useState} from 'react';
+import {ReactNode, useEffect, useState} from 'react';
 import {
-    Application, ApplicationForm,
-    ApplicationState,
+    Application,
+    ApplicationForm,
     Company,
     ContextFetcher,
-    Statistics, UpdateApplicationForm
+    Statistics,
+    UpdateApplicationForm
 } from "./types.ts";
 
-const ENDPOINT = process.env.NODE_ENV === 'development' ? "http://localhost:3000" : "";
+import {GlobalStateContext} from "./GlobalState.tsx";
 
-const GlobalStateContext = createContext<ApplicationState | undefined>(undefined);
+const ENDPOINT = process.env.NODE_ENV === 'development' ? "http://localhost:3000" : "";
 
 interface GlobalStateProviderProps {
     children: ReactNode;
@@ -91,10 +92,3 @@ export const GlobalStateProvider = ({children}: GlobalStateProviderProps) => {
         </GlobalStateContext.Provider>)
 }
 
-export const useGlobalState = () => {
-    const context = useContext(GlobalStateContext);
-    if (context === undefined) {
-        throw new Error('useGlobalState must be used within a GlobalStateProvider');
-    }
-    return context;
-}

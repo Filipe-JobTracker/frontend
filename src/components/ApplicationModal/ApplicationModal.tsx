@@ -9,8 +9,8 @@ import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import TextField from "@mui/material/TextField";
 import AppliedAtPicker from "./DatePicker.tsx";
-import {useGlobalState} from "../../AppContext.tsx";
 import {Company} from "../../types.ts";
+import {useGlobalState} from "../../GlobalState.tsx";
 
 const style = {
     position: 'absolute',

@@ -1,9 +1,9 @@
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import {useGlobalState} from "../../AppContext";
 import {useEffect, useState} from "react";
 import CompanyTable from "./CompanyTable"
 import {CompanyInfo} from "../../types.ts";
+import {useGlobalState} from "../../GlobalState.tsx";
 
 export interface CompanyProps {
     companies: CompanyInfo[];

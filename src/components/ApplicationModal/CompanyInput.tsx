@@ -1,8 +1,8 @@
 import TextField from '@mui/material/TextField';
 import Autocomplete, {createFilterOptions} from '@mui/material/Autocomplete';
-import {useGlobalState} from "../../AppContext.tsx";
 import {KeyboardEvent, Dispatch, SetStateAction} from "react";
 import {Company} from "../../types.ts";
+import {useGlobalState} from "../../GlobalState.tsx";
 
 interface CompanyInputProps {
     inputValue: string;

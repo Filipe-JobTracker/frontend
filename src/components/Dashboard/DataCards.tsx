@@ -1,10 +1,8 @@
 import Box from "@mui/material/Box";
 import DataCard from "./DataCard.tsx";
-import {
-    useGlobalState,
-} from "../../AppContext.tsx";
 import {useEffect, useState} from "react";
 import {CompanyInfo} from "../../types.ts";
+import {useGlobalState} from "../../GlobalState.tsx";
 
 export default function DataCards() {
     const {statistics} = useGlobalState();

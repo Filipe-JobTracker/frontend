@@ -3,11 +3,11 @@ import Button from "@mui/material/Button";
 import FileUploadRoundedIcon from "@mui/icons-material/FileUploadRounded";
 import FileDownloadRoundedIcon from "@mui/icons-material/FileDownloadRounded";
 import {ChangeEvent} from "react";
-import {useGlobalState} from "../../AppContext";
 import Papa from "papaparse";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import { ApplicationForm } from "../../types";
+import {useGlobalState} from "../../GlobalState.tsx";
 
 // Extend dayjs with customParseFormat plugin
 dayjs.extend(customParseFormat);

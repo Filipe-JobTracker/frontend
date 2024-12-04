@@ -1,8 +1,8 @@
 import Typography from "@mui/material/Typography";
-import {useGlobalState} from "../../AppContext.tsx";
 import ApplicationTable from "./ApplicationTable.tsx";
 import Box from "@mui/material/Box";
 import {useEffect, useState} from "react";
+import {useGlobalState} from "../../GlobalState.tsx";
 
 
 export default function Applications() {
