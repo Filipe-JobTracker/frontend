@@ -17,7 +17,7 @@ export const GlobalStateProvider = ({children}: any) => {
     const [statistics, setStatistics] = useState<Statistics | null>(null);
 
     const fetchData = async (value: ContextFetcher) => {
-        const response = await fetch(`http://localhost:3000/api/${value}`);
+        const response = await fetch(`${process.env.API_ENDPOINT || "http://localhost:3000"}/api/${value}`);
         const data = await response.json();
         if (value === "company") {
             setCompanies(data);
@@ -29,7 +29,7 @@ export const GlobalStateProvider = ({children}: any) => {
     }
 
     const addCompany = async (name: string) => {
-        const response = await fetch('http://localhost:3000/api/company', {
+        const response = await fetch(`${process.env.API_ENDPOINT || "http://localhost:3000"}/api/company`, {
             method: 'POST', headers: {
                 'Content-Type': 'application/json',
             }, body: JSON.stringify({name}),
@@ -41,7 +41,7 @@ export const GlobalStateProvider = ({children}: any) => {
     }
 
     const addApplication = async (form: ApplicationForm) => {
-        const response = await fetch('http://localhost:3000/api/application', {
+        const response = await fetch(`${process.env.API_ENDPOINT || "http://localhost:3000"}/api/application`, {
             method: 'POST', headers: {
                 'Content-Type': 'application/json',
             }, body: JSON.stringify(form),
@@ -55,7 +55,7 @@ export const GlobalStateProvider = ({children}: any) => {
     // TODO: Probably need to update this
     const updateApplication = async (form: UpdateApplicationForm) => {
         const {id, ...rest} = form;
-        const response = await fetch(`http://localhost:3000/api/application/${id}`, {
+        const response = await fetch(`${process.env.API_ENDPOINT || "http://localhost:3000"}/api/application/${id}`, {
             method: 'PUT', headers: {
                 'Content-Type': 'application/json',
             }, body: JSON.stringify(rest),
