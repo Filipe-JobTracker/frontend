@@ -11,6 +11,7 @@ import Layout from "./layout/Layout.tsx";
 import Companies from "./components/Companies/Companies.tsx";
 import Applications from "./components/Applications/Applications.tsx";
 import {GlobalStateProvider} from "./AppContext.tsx";
+import {CustomThemeProvider} from "./ThemeContext.tsx";
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -26,9 +27,11 @@ const router = createBrowserRouter(
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
       <StyledEngineProvider injectFirst>
-          <GlobalStateProvider>
-              <RouterProvider router={router}/>
-          </GlobalStateProvider>
+          <CustomThemeProvider>
+              <GlobalStateProvider>
+                  <RouterProvider router={router}/>
+              </GlobalStateProvider>
+          </CustomThemeProvider>
       </StyledEngineProvider>
   </StrictMode>,
 )
