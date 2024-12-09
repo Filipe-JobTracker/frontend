@@ -15,8 +15,8 @@ export default function RecentApplicationsTable() {
     const filteredApplications = applications.filter((application) => (new Date().getTime() - new Date(application.lastUpdate).getTime()) <= LAST_72H);
     return (<TableContainer sx={{
         m: 0,
-        maxWidth: 500,
-        maxHeight: 400,
+        // maxWidth: 500,
+        maxHeight: {sm: 800},
     }}>
         <Table stickyHeader aria-label="simple table">
             <TableHead>
