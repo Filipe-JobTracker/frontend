@@ -12,9 +12,7 @@ import {visuallyHidden} from '@mui/utils';
 import FormControl from '@mui/material/FormControl';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import IconButton from '@mui/material/IconButton';
-import Select, {
-    SelectChangeEvent,
-} from '@mui/material/Select';
+import Select, {SelectChangeEvent,} from '@mui/material/Select';
 import {MenuItem} from "@mui/material";
 import {ApplicationStatus} from "../../types.ts";
 import {useGlobalState} from "../../GlobalState.tsx";
@@ -30,7 +28,9 @@ const getChipColor = (status: ApplicationStatus) => {
         case ApplicationStatus.APPLIED:
             return "primary";
         case ApplicationStatus.INTERVIEW:
+        case ApplicationStatus.TECHNICAL_INTERVIEW:
             return "secondary";
+        case ApplicationStatus.TECHNICAL_TEST:
         case ApplicationStatus.CALLED:
             return "warning";
         case ApplicationStatus.ACCEPTED:
@@ -61,10 +61,10 @@ export default function StatusChip({status, id, active}: ChipProps) {
         updateApplication(form).catch(e => console.error(e));
         handleClose(null, undefined);
     }
-
+    const label = status.replace(/_/g, ' ').toLowerCase().replace(/\b\w/g, c => c.toUpperCase());
     return (
         <>
-            <Chip label={status} color={getChipColor(status)} onClick={() => handleOpen()}/>
+            <Chip label={label} color={getChipColor(status)} onClick={() => handleOpen()}/>
             <Dialog disableEscapeKeyDown open={open} onClose={(e, r) => handleClose(e as SyntheticEvent<unknown> | null, r)}>
                 <DialogTitle>Status of Application</DialogTitle>
                 <IconButton
@@ -97,6 +97,8 @@ export default function StatusChip({status, id, active}: ChipProps) {
                                 <MenuItem value={ApplicationStatus.CALLED}>Called</MenuItem>
                                 <MenuItem value={ApplicationStatus.ACCEPTED}>Accepted</MenuItem>
                                 <MenuItem value={ApplicationStatus.INTERVIEW}>Interview</MenuItem>
+                                <MenuItem value={ApplicationStatus.TECHNICAL_TEST}>Technical Test</MenuItem>
+                                <MenuItem value={ApplicationStatus.TECHNICAL_INTERVIEW}>Technical Interview</MenuItem>
                             </Select>
                         </FormControl>
                     </Box>

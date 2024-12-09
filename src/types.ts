@@ -1,13 +1,15 @@
 import {Dayjs} from "dayjs";
 
 export enum ApplicationStatus {
-    GHOSTED = "GHOSTED",
-    REJECTED = "REJECTED",
-    APPLIED = "APPLIED",
-    INTERVIEW = "INTERVIEW",
     OFFER = "OFFER",
     CALLED = "CALLED",
+    APPLIED = "APPLIED",
+    GHOSTED = "GHOSTED",
+    REJECTED = "REJECTED",
+    INTERVIEW = "INTERVIEW",
     ACCEPTED = "ACCEPTED",
+    TECHNICAL_TEST = "TECHNICAL_TEST",
+    TECHNICAL_INTERVIEW = "TECHNICAL_INTERVIEW",
 }
 
 export interface Company {
