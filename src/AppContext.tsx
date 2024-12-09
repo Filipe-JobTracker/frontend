@@ -7,10 +7,7 @@ import {
     Statistics,
     UpdateApplicationForm
 } from "./types.ts";
-
-import {GlobalStateContext} from "./GlobalState.tsx";
-
-const ENDPOINT = process.env.NODE_ENV === 'development' ? "http://localhost:3000" : "";
+import {ENDPOINT, GlobalStateContext} from "./GlobalState.tsx";
 
 interface GlobalStateProviderProps {
     children: ReactNode;

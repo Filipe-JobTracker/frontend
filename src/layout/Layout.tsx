@@ -1,6 +1,4 @@
-import { Outlet } from 'react-router-dom'
-
-// import "./Layout.scss"
+import {Outlet} from 'react-router-dom'
 import SideMenu from "../components/SideMenu/SideMenu.tsx";
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
@@ -17,18 +15,20 @@ function Layout() {
                 justifyContent: 'center',
                 bgcolor: 'background.paper',
             }}>
-                <Grid container spacing={1} rowSpacing={2}  columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+                <Grid container spacing={1} rowSpacing={2}
+                      columnSpacing={{xs: 1, sm: 2, md: 3}}>
                     <Grid size="auto" sx={{
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        flexGrow:1,
+                        flexGrow: 1,
                     }}>
-                        <SideMenu />
+                        <SideMenu/>
                     </Grid>
-                    <Grid display="flex" justifyContent="center" alignItems="center" size="auto">
-                            <Outlet />
+                    <Grid display="flex" justifyContent="center"
+                          alignItems="center" size="auto">
+                        <Outlet/>
                     </Grid>
                 </Grid>
             </Box>
