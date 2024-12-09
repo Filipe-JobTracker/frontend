@@ -132,16 +132,16 @@ export default function ImportCSV() {
         <Button component="label" variant="contained" color="success" sx={{
             width: "100%", my: 1,
         }}>
-                <Box sx={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    width: '100%'
-                }}>
-                    CSV
-                    <Box sx={{display: 'flex', alignItems: 'center'}}>
-                        <FileDownloadRoundedIcon/>
-                    </Box>
+            <Box sx={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                width: '100%'
+            }}>
+                CSV
+                <Box sx={{display: 'flex', alignItems: 'center'}}>
+                    <FileDownloadRoundedIcon/>
                 </Box>
-            </Button>
-        </Box>);
+            </Box>
+        </Button>
+    </Box>);
 }
