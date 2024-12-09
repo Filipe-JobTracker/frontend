@@ -1,6 +1,6 @@
 import TextField from '@mui/material/TextField';
 import Autocomplete, {createFilterOptions} from '@mui/material/Autocomplete';
-import {KeyboardEvent, Dispatch, SetStateAction} from "react";
+import {Dispatch, KeyboardEvent, SetStateAction} from "react";
 import {Company} from "../../types.ts";
 import {useGlobalState} from "../../GlobalState.tsx";
 
@@ -15,15 +15,13 @@ interface CompanyInputProps {
 
 const filter = createFilterOptions<string>();
 
-export default function CompanyInput({
-                                         updateFormValue,
-                                         inputValue,
-                                         company,
-                                         updateCompanyValue,
-                                         validInput,
-                                         updateValidInput,
-                                     }: CompanyInputProps) {
-
+export default function CompanyInput(data: CompanyInputProps) {
+    const {
+        inputValue, company, validInput,
+        updateValidInput,
+        updateFormValue,
+        updateCompanyValue,
+    } = data;
     const {companies, addCompany} = useGlobalState();
 
     const filteredCompanies = companies.map((company: Company) => company.name);
@@ -73,7 +71,7 @@ export default function CompanyInput({
 
             const isExisting = options.some((option) => inputValue === option);
             if (inputValue !== '' && !isExisting) {
-                filtered.push(`Press Enter to add ${inputValue as string}`);
+                filtered.push(`${inputValue as string}`);
             }
 
             return filtered;
@@ -95,8 +93,6 @@ export default function CompanyInput({
                 } else {
                     updateCompanyValue(companies.filter((c: Company) => c.name === inputValue)[0]);
                 }
-            } else {
-                console.error("ai o crl");
             }
         }}
         getOptionLabel={(option) => {
@@ -119,6 +115,6 @@ export default function CompanyInput({
         sx={{width: "100%", pb: 2}}
         renderInput={(params) => (<TextField {...params}
                                              onKeyDown={handleKeyDown}
-                                             label="Company"/>)}
+                                             label="Company" required/>)}
     />);
 }
