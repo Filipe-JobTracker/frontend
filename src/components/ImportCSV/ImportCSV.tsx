@@ -6,14 +6,20 @@ import {ChangeEvent} from "react";
 import Papa from "papaparse";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
-import { ApplicationForm } from "../../types";
+import {ApplicationForm, ApplicationStatus} from "../../types";
 import {useGlobalState} from "../../GlobalState.tsx";
+
+interface ApplicationsToUpdateForm {
+    status: ApplicationStatus;
+    active: boolean;
+    link: string;
+}
 
 // Extend dayjs with customParseFormat plugin
 dayjs.extend(customParseFormat);
 
 export default function ImportCSV() {
-    const { addApplication, companies, addCompany } = useGlobalState();
+    const {applications: applicationStateArr, addApplication, companies, addCompany, updateApplication, fetchData} = useGlobalState();
     const handleFileUpload = async (event: ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
         if (file) {
@@ -21,26 +27,76 @@ export default function ImportCSV() {
                 header: true,
                 complete: async (results) => {
                     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                    const data = results.data as any[];
-                    console.log(data);
-                    const mappedData = await Promise.all(data.map(async (row) => {
-                        // console.log(new Date(row.Date));
-                        const parsedDate = dayjs(row.Date, "DD/MM/YYYY").toDate();
-                        // console.log(parsedDate);
-                        let company = companies.find(c => c.name === row.Company);
-                        if (!company) {
-                            company = await addCompany(row.Company);
+                    const data = (results.data as any[]).filter(row => Object.values(row).some(value => (value as string).trim() !== ""));
+                    const newCompanies = new Set<string>();
+                    const applications: ApplicationForm[] = [];
+                    const applicationsToChange: ApplicationsToUpdateForm[] = [];
+
+                    for (const row of data) {
+                        let parsedDate = dayjs(row.Date, "DD/MM/YYYY", true);
+                        if (parsedDate.toString() === 'Invalid Date') {
+                            parsedDate = dayjs(row.Date, "D/MM/YYYY", true);
                         }
-                        return {
+
+                        if (!companies.some(c => c.name === row.Company)) {
+                            newCompanies.add(row.Company);
+                        }
+                        const temp = {
                             name: row.Position,
-                            appliedAt: parsedDate,
-                            company,
+                            appliedAt: parsedDate.toDate(),
+                            company: {id: "", name: row.Company}, // Temporary company object
                             link: row.Link,
-                        } as ApplicationForm;
-                    }));
-                    // setApplications(mappedData);
-                    mappedData.forEach(app => addApplication(app));
-                    console.log(mappedData);
+                        };
+                        applications.push(temp);
+                        if (row.Called.length > 0) {
+                            applicationsToChange.push({
+                                status: ApplicationStatus.TECHNICAL_TEST,
+                                link: temp.link,
+                                active: true,
+                            });
+                        }
+                        if (row.Ghosted.length > 0) {
+                            applicationsToChange.push({
+                                status: ApplicationStatus.REJECTED,
+                                link: temp.link,
+                                active: false,
+                            });
+                        }
+                    }
+
+                    for (const companyName of newCompanies) {
+                        try {
+                            const newCompany = await addCompany(companyName);
+                            companies.push(newCompany); // Update local companies list
+                        } catch (error) {
+                            console.error(`Error adding company ${companyName}:`, error);
+                        }
+                    }
+
+
+                    for (const app of applications) {
+                        const company = companies.find(c => c.name === app.company.name);
+                        if (company) {
+                            app.company = company; // Update company object with actual data
+                            try {
+                                const application = await addApplication(app);
+                                applicationStateArr.push(application);
+                            } catch (error) {
+                                console.error(`Error adding application for ${app.name}:`, error);
+                            }
+                        } else {
+                            console.error(`Company not found for application:`, app);
+                        }
+                    }
+
+                    for (const app of applicationsToChange) {
+                        const applicationToUpdate = applicationStateArr.find(c => c.link === app.link);
+                        if (!applicationToUpdate)
+                            continue ;
+                        await updateApplication({id: applicationToUpdate.id, status: app.status, active:applicationToUpdate.active})
+                    }
+                    fetchData("application");
+                    console.log("All applications imported successfully!");
                 },
                 error: (error) => {
                     console.error('Error parsing CSV:', error);
