@@ -64,15 +64,15 @@ const headCells: readonly HeadCell[] = [{
 }, {
     id: 'company', numeric: false, disablePadding: false, label: 'Company',
 }, {
-    id: 'name', numeric: true, disablePadding: false, label: 'Position',
+    id: 'name', numeric: false, disablePadding: false, label: 'Position',
 }, {
-    id: 'link', numeric: true, disablePadding: false, label: 'Link',
+    id: 'link', numeric: false, disablePadding: false, label: 'Link',
 }, {
-    id: 'status', numeric: true, disablePadding: false, label: 'Status',
+    id: 'status', numeric: false, disablePadding: false, label: 'Status',
 }, {
-    id: 'appliedAt', numeric: true, disablePadding: false, label: 'Applied At',
+    id: 'appliedAt', numeric: false, disablePadding: false, label: 'Applied At',
 }, {
-    id: 'lastUpdate', numeric: true, disablePadding: false, label: 'Updated At',
+    id: 'lastUpdate', numeric: false, disablePadding: false, label: 'Updated At',
 },];
 
 interface EnhancedTableProps {
@@ -118,7 +118,7 @@ export default function ApplicationTable({applications}: {
     const [order, setOrder] = useState<Order>('asc');
     const [orderBy, setOrderBy] = useState<keyof Application>('active');
     const [page, setPage] = useState(0);
-    const [rowsPerPage, setRowsPerPage] = useState(25);
+    const [rowsPerPage, setRowsPerPage] = useState(10);
 
 
     const handleRequestSort = (
