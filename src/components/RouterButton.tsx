@@ -12,8 +12,8 @@ export interface ButtonRouterProps {
     url: string;
     text: string;
     component?: Element;
-    sx: SxProps;
-    color?: "inherit" | "primary" | "secondary" | "success" | "error" | "info" | "warning";
+    sx?: SxProps;
+    color?: string;
     icon?: any;
 }
 
@@ -34,19 +34,20 @@ export default function RouterButton({
     const behaviour = LinkBehavior(url);
     return (
         <div>
-            <Button variant="contained" color={color || "primary"}
+            <Button variant="text" color={color || "primary"}
                     component={behaviour} sx={sx}>
                 <Box sx={{
                     display: 'flex',
                     justifyContent: 'space-between',
-                    width: '100%'
+                    width: '100%',
+                    gap: 1,
                 }}>
-                    {text}
                     <>
                         {icon && <Box sx={{display: 'flex', alignItems: 'center'}}>
                             {icon}
                         </Box>}
                     </>
+                    {text}
                 </Box>
             </Button>
         </div>
